@@ -1,0 +1,2 @@
+EXEC InsertHorarium
+@type = 'laboratory';
