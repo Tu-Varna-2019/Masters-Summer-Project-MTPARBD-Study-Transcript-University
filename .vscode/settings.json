@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mssqlOptions": {
+                "appName": "University",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "database-1.cewhgtttgd7f.eu-central-1.rds.amazonaws.com",
+            "port": 1433,
+            "driver": "MSSQL",
+            "name": "University",
+            "database": "university",
+            "username": "admin",
+            "password": "FAC20GPgIzUPUIJ86gbM"
+        }
+    ]
+}
