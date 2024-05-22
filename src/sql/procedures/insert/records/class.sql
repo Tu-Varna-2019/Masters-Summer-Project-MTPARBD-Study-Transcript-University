@@ -1,4 +1,4 @@
-CREATE PROCEDURE InsertClass @year INT,
+ALTER PROCEDURE InsertClass @year INT,
 @day_of_week INT,
 @duration INT,
 @time time,
@@ -21,15 +21,15 @@ INSERT INTO dbo.Class (
         lead_teacher_id
     )
 VALUES (
-        year,
-        day_of_week,
-        duration,
-        time,
-        horarium_id,
-        subject_id,
-        semester_id,
-        hall_id,
-        lead_teacher_id
+        @year,
+        @day_of_week,
+        @duration,
+        @time,
+        @horarium_id,
+        @subject_id,
+        @semester_id,
+        @hall_id,
+        @lead_teacher_id
     ) PRINT 'Class is successfully added!';
 END
 END;

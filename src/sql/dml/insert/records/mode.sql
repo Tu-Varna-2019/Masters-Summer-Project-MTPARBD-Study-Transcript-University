@@ -1,8 +1,2 @@
-EXEC InsertHorarium
-@type = 'laboratory';
-
-EXEC InsertHorarium
-@type = 'lecture';
-
-EXEC InsertHorarium
-@type = 'coursework';
+EXEC InsertMode @name = 'regular';
+EXEC InsertMode @name = 'part';

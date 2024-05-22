@@ -1,13 +1,7 @@
-ALTER  PROCEDURE InsertHorarium
-@type VARCHAR(50)
-
-AS
+ALTER PROCEDURE InsertMode @name VARCHAR(50) AS BEGIN
+SET NOCOUNT ON;
 BEGIN
-    SET NOCOUNT ON;
-   
-   BEGIN
-    INSERT INTO dbo.Horarium (type)
-    VALUES (@type)
-    PRINT 'Horarium is successfully added!';
-   END
+INSERT INTO dbo.Mode (name)
+VALUES (@name) PRINT 'Mode is successfully added!';
+END
 END;
