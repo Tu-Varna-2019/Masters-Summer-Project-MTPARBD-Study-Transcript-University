@@ -1,13 +1,7 @@
-ALTER  PROCEDURE InsertHorarium
-@type VARCHAR(50)
-
-AS
+CREATE PROCEDURE InsertSpecialty @name VARCHAR(100) AS BEGIN
+SET NOCOUNT ON;
 BEGIN
-    SET NOCOUNT ON;
-   
-   BEGIN
-    INSERT INTO dbo.Horarium (type)
-    VALUES (@type)
-    PRINT 'Horarium is successfully added!';
-   END
+INSERT INTO dbo.Specialty (name)
+VALUES (@name) PRINT 'Specialty is successfully added!';
+END
 END;

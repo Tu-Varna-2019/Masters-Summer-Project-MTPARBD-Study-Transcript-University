@@ -1,30 +1,16 @@
-ALTER TRIGGER Trigger_InsertHorarium
-ON Horarium
-INSTEAD OF INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-	DECLARE @type VARCHAR(50)
-   
-   SELECT @type = type FROM inserted;
-
-   IF @type IS NULL 
-   BEGIN 
-   	RAISERROR ('Type must not be empty!',16,1);
-   END
-  ELSE IF @type NOT IN ('lecture', 'laboratory','coursework')
-  BEGIN
-  	RAISERROR ('Type has incorrect value! It must be one of: lecture, laboratory, coursework',16,1);
-  END
-   ELSE
-   BEGIN TRY
-	   INSERT INTO Horarium (type)
-	   SELECT type FROM inserted;
-	  PRINT 'Horarium provided values are correct! Moving on...';
-	     END TRY
-  BEGIN CATCH
- 
-  PRINT 'Error occured when trying to insert horarium!';
- PRINT ERROR_MESSAGE();
-END CATCH
+CREATE TRIGGER Trigger_InsertSpecialty ON Specialty INSTEAD OF
+INSERT AS BEGIN
+SET NOCOUNT ON;
+DECLARE @name VARCHAR(50)
+SELECT @name = name
+FROM inserted;
+IF @name = '' RAISERROR ('Specialty must not be empty!', 16, 1);
 END;
+BEGIN TRY
+INSERT INTO Specialty (name)
+SELECT name
+FROM inserted;
+PRINT 'Specialty provided values are correct! Moving on...';
+END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert semester!';
+PRINT ERROR_MESSAGE();
+END CATCH;

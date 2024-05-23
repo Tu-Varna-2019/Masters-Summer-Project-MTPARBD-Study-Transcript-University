@@ -1,13 +1,9 @@
-ALTER  PROCEDURE InsertHorarium
-@type VARCHAR(50)
-
-AS
+ALTER PROCEDURE InsertStudent @name VARCHAR(100),
+@faculty_number VARCHAR(8),
+@studentgroup_id INT AS BEGIN
+SET NOCOUNT ON;
 BEGIN
-    SET NOCOUNT ON;
-   
-   BEGIN
-    INSERT INTO dbo.Horarium (type)
-    VALUES (@type)
-    PRINT 'Horarium is successfully added!';
-   END
+INSERT INTO dbo.Student (name, faculty_number, studentgroup_id)
+VALUES (@name, @faculty_number, @studentgroup_id) PRINT 'Student is successfully added!';
+END
 END;
