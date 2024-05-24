@@ -1,0 +1,1 @@
+ALTER TABLE university.dbo.Subject DROP CONSTRAINT teacher_id;

@@ -1,13 +1,10 @@
-CREATE PROCEDURE InsertSemester
-   @semester_number INT
+CREATE
+OR ALTER PROCEDURE InsertSemester @semester_number INT AS BEGIN
+SET NOCOUNT ON;
 
-AS
 BEGIN
-    SET NOCOUNT ON;
+INSERT INTO dbo.Semester (semester_number)
+VALUES (@semester_number) PRINT 'Semester is successfully added!';
 
-   BEGIN
-    INSERT INTO dbo.Semester (semester_number)
-    VALUES (@semester_number)
-    PRINT 'Semester is successfully added!';
-   END
+END
 END;

@@ -1,8 +1,10 @@
-CREATE PROCEDURE InsertSubject @name VARCHAR(100),
-@teacher_id INT AS BEGIN
+CREATE
+OR ALTER PROCEDURE InsertSubject @name VARCHAR(100) AS BEGIN
 SET NOCOUNT ON;
+
 BEGIN
-INSERT INTO dbo.Subject (name, teacher_id)
-VALUES (@name, @teacher_id) PRINT 'Subject is successfully added!';
+INSERT INTO dbo.Subject (name)
+VALUES (@name) PRINT 'Subject is successfully added!';
+
 END
 END;

@@ -1,0 +1,9 @@
+EXEC InsertClass @year = 2023,
+@day_of_week = 2,
+@duration = 1.30,
+@time = '15:15:00',
+@horarium_id = 8,
+@subject_id = 8,
+@semester_id = 2,
+@hall_id = 5,
+@lead_teacher_id = 10;

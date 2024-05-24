@@ -1,22 +1,29 @@
-ALTER TRIGGER Trigger_InsertSubject ON Subject INSTEAD OF
+CREATE
+OR ALTER TRIGGER Trigger_InsertSubject ON Subject INSTEAD OF
 INSERT AS BEGIN
 SET NOCOUNT ON;
+
 DECLARE @name VARCHAR(100);
-DECLARE @teacher_id INT;
+
 SELECT @name = name
 FROM inserted;
-SELECT @teacher_id = teacher_id
-FROM inserted;
-IF @teacher_id IS NULL
-OR @name = '' BEGIN RAISERROR ('Subject params must not be empty!', 16, 1);
+
+IF (
+    SELECT 1
+    FROM Subject
+    WHERE name = @name
+) > 0 BEGIN RAISERROR('Subject already exists!', 16, 1)
 END
 ELSE BEGIN TRY
-INSERT INTO Subject (teacher_id, name)
-SELECT teacher_id,
-    name
+INSERT INTO Subject (name)
+SELECT name
 FROM inserted;
+
 PRINT 'Subject provided values are correct! Moving on...';
+
 END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert Subject!';
+
 PRINT ERROR_MESSAGE();
+
 END CATCH
 END;

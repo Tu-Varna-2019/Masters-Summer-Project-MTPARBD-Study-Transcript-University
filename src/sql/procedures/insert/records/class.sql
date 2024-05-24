@@ -1,13 +1,15 @@
-ALTER PROCEDURE InsertClass @year INT,
+CREATE
+OR ALTER PROCEDURE InsertClass @year INT,
 @day_of_week INT,
-@duration INT,
-@time time,
+@duration TIME,
+@time TIME,
 @horarium_id INT,
 @subject_id INT,
 @semester_id INT,
 @hall_id INT,
 @lead_teacher_id INT AS BEGIN
 SET NOCOUNT ON;
+
 BEGIN
 INSERT INTO dbo.Class (
         year,
@@ -31,5 +33,6 @@ VALUES (
         @hall_id,
         @lead_teacher_id
     ) PRINT 'Class is successfully added!';
+
 END
 END;

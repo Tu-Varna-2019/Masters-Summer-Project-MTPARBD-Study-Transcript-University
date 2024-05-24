@@ -1,33 +1,35 @@
-DECLARE @subjects TABLE (
-        name VARCHAR(100),
-        teacher_id INT
-    );
-INSERT INTO @subjects (name, teacher_id)
-VALUES ('Software Engineering', 1),
-    ('Computer Science', 2),
-    ('Electrical Engineering', 3),
-    ('Mechanical Engineering', 4),
-    ('Civil Engineering', 5),
-    ('Physics', 6),
-    ('Chemistry', 7),
-    ('Biology', 8),
-    ('Mathematics', 9),
-    ('English Literature', 10);
+DECLARE @subjects TABLE (name VARCHAR(100));
+
+INSERT INTO @subjects (name)
+VALUES ('Software Engineering'),
+    ('Computer Science'),
+    ('Electrical Engineering'),
+    ('Mechanical Engineering'),
+    ('Civil Engineering'),
+    ('Physics'),
+    ('Chemistry'),
+    ('Biology'),
+    ('Mathematics'),
+    ('English Literature');
+
 DECLARE @name VARCHAR(100);
-DECLARE @teacher_id VARCHAR(50);
+
 DECLARE subject_cursor CURSOR FOR
-SELECT name,
-    teacher_id
+SELECT name
 FROM @subjects;
+
 OPEN subject_cursor;
+
 FETCH NEXT
-FROM subject_cursor INTO @name,
-    @teacher_id;
-WHILE @@FETCH_STATUS = 0 BEGIN EXEC InsertSubject @name = @name,
-@teacher_id = @teacher_id;
+FROM subject_cursor INTO @name;
+
+WHILE @@FETCH_STATUS = 0 BEGIN EXEC InsertSubject @name = @name;
+
 FETCH NEXT
-FROM subject_cursor INTO @name,
-    @teacher_id;
+FROM subject_cursor INTO @name;
+
 END;
+
 CLOSE subject_cursor;
+
 DEALLOCATE subject_cursor;

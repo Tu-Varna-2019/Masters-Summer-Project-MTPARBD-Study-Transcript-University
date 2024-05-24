@@ -1,8 +1,7 @@
-IF OBJECT_ID('university.dbo.Location', 'U') IS NULL
-BEGIN 
 CREATE TABLE university.dbo.Location (
-id INT PRIMARY KEY IDENTITY(1,1),
-room_number INT,
-full_name VARCHAR(100)
-)
-END
+    id INT PRIMARY KEY IDENTITY(1, 1),
+    building VARCHAR(100) NOT NULL,
+    floor INT NOT NULL,
+    room VARCHAR(8) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+);
