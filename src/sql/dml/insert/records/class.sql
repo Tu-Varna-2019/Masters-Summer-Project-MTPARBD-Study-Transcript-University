@@ -72,9 +72,7 @@ WHILE @@FETCH_STATUS = 0 BEGIN EXEC InsertClass @year = @year,
 @subject_id = @subject_id,
 @semester_id = @semester_id,
 @hall_id = @hall_id,
-@lead_teacher_id = @lead_teacher_id;
-
-FETCH NEXT
+@lead_teacher_id = @lead_teacher_id FETCH NEXT
 FROM class_cursor INTO @year,
     @day_of_week,
     @duration,

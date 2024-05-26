@@ -10,9 +10,15 @@ SELECT @subject_id = subject_id,
     @teacher_id = teacher_id
 FROM inserted;
 
--- IF @subject_id = '' RAISERROR ('SubjectTeacher name must not be empty!', 16, 1);,teacher_id
--- END;
-BEGIN TRY
+IF EXISTS (
+    SELECT 1
+    FROM SubjectTeacher
+    WHERE subject_id = @subject_id
+        AND teacher_id = @teacher_id
+) BEGIN RAISERROR ('SubjectTeacher already exists!', 16, 1);
+
+END
+ELSE BEGIN BEGIN TRY
 INSERT INTO SubjectTeacher (subject_id, teacher_id)
 SELECT subject_id,
     teacher_id
@@ -20,9 +26,11 @@ FROM inserted;
 
 PRINT 'SubjectTeacher provided values are correct! Moving on...';
 
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert semester!';
+END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert SubjectTeacher!';
 
 PRINT ERROR_MESSAGE();
 
 END CATCH
+END;
+
 END;

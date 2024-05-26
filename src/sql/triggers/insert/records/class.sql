@@ -32,19 +32,48 @@ IF (
     16,
     1
 )
-END -- Check if lead teacher is part of the teacher group for the specific subject --
--- ELSE IF (
---     SELECT 1
---     FROM Class AS c
---         INNER JOIN Subject AS s ON (c.subject_id = s.id)
---     WHERE c.lead_teacher_id = @lead_teacher_id
---         AND s.teacher_id = @lead_teacher_id
--- ) > 0 BEGIN RAISERROR (
---     'Leading teacher cannot teach the subject, because he isnt assigned to the respective teacher group for the subject!',
---     16,
---     1
--- )
--- END
+END --Check if lead teacher is part of the teacher group for the specific subject --
+ELSE IF (
+    SELECT COUNT(1)
+    FROM SubjectTeacher AS st
+        INNER JOIN Subject AS s ON (st.subject_id = s.id)
+        INNER JOIN Class AS c ON (s.id = c.subject_id)
+    WHERE c.lead_teacher_id = @lead_teacher_id
+        AND st.teacher_id != @lead_teacher_id
+) > 0 BEGIN RAISERROR (
+    'Leading teacher cannot teach the subject, because he is not assigned to the respective teacher group for the subject!',
+    15,
+    0
+)
+END
+ELSE IF (
+     @time <= '7:15'
+        OR @time >= '20:00'
+)  BEGIN RAISERROR (
+    'Given time is prohibited, it`s out of approved time range (7:15 - 20:00)',
+    15,
+    0
+)
+END
+ELSE IF (
+    SELECT COUNT(1)
+    FROM Class AS c
+    WHERE @time >= c.time
+        AND @time <= DATEADD(
+            SECOND,
+            DATEDIFF(SECOND, '00:00:00', c.time) + DATEDIFF(SECOND, '00:00:00', c.duration),
+            c.time
+        )
+) > 0 BEGIN RAISERROR ('Time is already occupied!', 15, 0)
+END
+ELSE IF (
+    SELECT SUM(DATEDIFF(MINUTE, '00:00', c.duration))
+    FROM SubjectTeacher AS st
+        INNER JOIN Teacher AS t ON (st.teacher_id = t.id)
+        INNER JOIN Class AS c ON (t.id = c.lead_teacher_id)
+    WHERE c.lead_teacher_id = @lead_teacher_id
+) > (8 * 60) BEGIN RAISERROR ('Teacher working time exceeds 8!', 15, 0)
+END
 ELSE BEGIN BEGIN TRY
 INSERT INTO Class (
         year,
