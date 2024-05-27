@@ -1,9 +1,11 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertClass ON Class INSTEAD OF
-INSERT, UPDATE, DELETE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertClass ON Class AFTER 
+INSERT,
+    UPDATE AS BEGIN
 SET NOCOUNT ON;
 
-DECLARE @day_of_week INT,
+DECLARE @year INT,
+    @day_of_week INT,
     @duration TIME,
     @time TIME,
     @horarium_id INT,
@@ -12,7 +14,8 @@ DECLARE @day_of_week INT,
     @hall_id INT,
     @lead_teacher_id INT;
 
-SELECT @day_of_week = day_of_week,
+SELECT @year = year,
+    @day_of_week = day_of_week,
     @duration = duration,
     @time = time,
     @horarium_id = horarium_id,
@@ -47,9 +50,9 @@ ELSE IF (
 )
 END
 ELSE IF (
-     @time <= '7:15'
-        OR @time >= '20:00'
-)  BEGIN RAISERROR (
+    @time <= '7:15'
+    OR @time >= '20:00'
+) BEGIN RAISERROR (
     'Given time is prohibited, it`s out of approved time range (7:15 - 20:00)',
     15,
     0
@@ -59,6 +62,7 @@ ELSE IF (
     SELECT COUNT(1)
     FROM Class AS c
     WHERE @time >= c.time
+        AND @year = c.year
         AND @time <= DATEADD(
             SECOND,
             DATEDIFF(SECOND, '00:00:00', c.time) + DATEDIFF(SECOND, '00:00:00', c.duration),
@@ -73,36 +77,6 @@ ELSE IF (
         INNER JOIN Class AS c ON (t.id = c.lead_teacher_id)
     WHERE c.lead_teacher_id = @lead_teacher_id
 ) > (8 * 60) BEGIN RAISERROR ('Teacher working time exceeds 8!', 15, 0)
-END
-ELSE BEGIN BEGIN TRY
-INSERT INTO Class (
-        year,
-        day_of_week,
-        duration,
-        time,
-        horarium_id,
-        subject_id,
-        semester_id,
-        hall_id,
-        lead_teacher_id
-    )
-SELECT year,
-    day_of_week,
-    duration,
-    time,
-    horarium_id,
-    subject_id,
-    semester_id,
-    hall_id,
-    lead_teacher_id
-FROM inserted;
+END PRINT 'Class provided values are correct! Moving on...';
 
-PRINT 'Class provided values are correct! Moving on...';
-
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert Class!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
-END
 END;

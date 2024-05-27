@@ -1,6 +1,6 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertLocation ON Location INSTEAD OF
-INSERT, UPDATE, DELETE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertLocation ON Location AFTER 
+INSERT, UPDATE AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @building VARCHAR(100),
@@ -19,19 +19,6 @@ OR @full_name = ''
 OR @building = '' BEGIN RAISERROR ('Location params must not be empty!', 16, 1);
 
 END
-ELSE BEGIN TRY
-INSERT INTO Location (room, full_name, building, floor)
-SELECT room,
-   full_name,
-   building,
-   floor
-FROM inserted;
-
 PRINT 'Location provided values are correct! Moving on...';
 
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert Location!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
 END;

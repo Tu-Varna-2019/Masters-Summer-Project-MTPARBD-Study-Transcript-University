@@ -1,6 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertSubjectTeacher ON SubjectTeacher INSTEAD OF
-INSERT , UPDATE, DELETE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertSubjectTeacher ON SubjectTeacher AFTER 
+INSERT,
+    UPDATE AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @subject_id INT,
@@ -17,20 +18,6 @@ IF EXISTS (
         AND teacher_id = @teacher_id
 ) BEGIN RAISERROR ('SubjectTeacher already exists!', 16, 1);
 
-END
-ELSE BEGIN BEGIN TRY
-INSERT INTO SubjectTeacher (subject_id, teacher_id)
-SELECT subject_id,
-    teacher_id
-FROM inserted;
-
-PRINT 'SubjectTeacher provided values are correct! Moving on...';
-
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert SubjectTeacher!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
-END;
+END PRINT 'SubjectTeacher provided values are correct! Moving on...';
 
 END;

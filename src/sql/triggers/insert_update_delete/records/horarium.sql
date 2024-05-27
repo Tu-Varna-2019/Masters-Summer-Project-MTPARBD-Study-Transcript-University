@@ -1,8 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertHorarium ON Horarium INSTEAD OF
+OR ALTER TRIGGER Trigger_InsertHorarium ON Horarium AFTER 
 INSERT,
-    UPDATE,
-    DELETE AS BEGIN
+    UPDATE AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @type VARCHAR(50)
@@ -15,17 +14,6 @@ IF @type NOT IN ('lecture', 'laboratory', 'coursework') BEGIN RAISERROR (
     1
 );
 
-END
-ELSE BEGIN TRY
-INSERT INTO Horarium (type)
-SELECT type
-FROM inserted;
+END PRINT 'Horarium provided values are correct! Moving on...';
 
-PRINT 'Horarium provided values are correct! Moving on...';
-
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert horarium!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
 END;

@@ -1,8 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertSemester ON Semester INSTEAD OF
+OR ALTER TRIGGER Trigger_InsertSemester ON Semester AFTER 
 INSERT,
-    UPDATE,
-    DELETE AS BEGIN
+    UPDATE AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @semester_number VARCHAR(50);
@@ -15,18 +14,7 @@ IF @semester_number NOT IN (1, 2) BEGIN RAISERROR (
     16,
     1
 );
-
 END
-ELSE BEGIN TRY
-INSERT INTO Semester (semester_number)
-SELECT semester_number
-FROM inserted;
-
 PRINT 'Semester provided values are correct! Moving on...';
 
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert semester!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
 END;

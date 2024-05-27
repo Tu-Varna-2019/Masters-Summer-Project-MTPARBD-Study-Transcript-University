@@ -6,7 +6,9 @@ SET NOCOUNT ON;
 
 BEGIN
 INSERT INTO dbo.Hall (capacity, number_of_work_places, location_id)
-VALUES (@capacity, @number_of_work_places, @location_id) PRINT 'Hall is successfully added!';
+VALUES (@capacity, @number_of_work_places, @location_id);
+
+ PRINT 'Hall is successfully added!';
 
 END
 END;

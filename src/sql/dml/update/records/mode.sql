@@ -1,2 +1,5 @@
-EXEC InsertMode @name = 'regular';
-EXEC InsertMode @name = 'part';
+DECLARE @id INT = 1,
+@name VARCHAR(100) = 'regular';
+
+EXEC UpdateMode @id,
+@name;

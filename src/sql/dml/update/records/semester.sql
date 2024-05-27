@@ -1,5 +1,5 @@
-EXEC InsertSemester
-@semester_number = 1;
+DECLARE @id INT = 1,
+    @semester_number INT = 2;
 
-EXEC InsertSemester
-@semester_number = 3;
+EXEC UpdateSemester @id,
+@semester_number;

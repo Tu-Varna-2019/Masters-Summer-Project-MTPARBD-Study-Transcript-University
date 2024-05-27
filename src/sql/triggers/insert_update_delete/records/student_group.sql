@@ -1,8 +1,8 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertStudentGroup ON StudentGroup INSTEAD OF
+OR ALTER TRIGGER Trigger_InsertStudentGroup ON StudentGroup AFTER 
 INSERT,
-    UPDATE,
-    DELETE AS BEGIN
+    UPDATE
+     AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @group_number INT,
@@ -42,24 +42,6 @@ ELSE IF (
     1
 )
 END
-ELSE BEGIN TRY
-INSERT INTO StudentGroup (
-        group_number,
-        course,
-        specialty_id,
-        mode_id
-    )
-SELECT group_number,
-    course,
-    specialty_id,
-    mode_id
-FROM inserted;
-
 PRINT 'StudentGroup provided values are correct! Moving on...';
 
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert StudentGroup!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
 END;

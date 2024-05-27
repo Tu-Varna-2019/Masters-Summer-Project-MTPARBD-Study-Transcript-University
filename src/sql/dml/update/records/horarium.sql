@@ -1,8 +1,5 @@
-EXEC InsertHorarium
-@type = 'laboratory';
+DECLARE @id INT = 2,
+    @type VARCHAR(50) = 'lecture';
 
-EXEC InsertHorarium
-@type = 'lecture';
-
-EXEC InsertHorarium
-@type = 'coursework';
+EXEC UpdateHorarium @id,
+@type;

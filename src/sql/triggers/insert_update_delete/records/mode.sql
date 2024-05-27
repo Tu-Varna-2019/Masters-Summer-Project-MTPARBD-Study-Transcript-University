@@ -1,8 +1,8 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertMode ON Mode INSTEAD OF
+OR ALTER TRIGGER Trigger_InsertMode ON Mode AFTER 
 INSERT,
-    UPDATE,
-    DELETE AS BEGIN
+    UPDATE
+     AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @name VARCHAR(50)
@@ -16,16 +16,6 @@ IF @name NOT IN ('regular', 'part') BEGIN RAISERROR (
 );
 
 END
-ELSE BEGIN TRY
-INSERT INTO Mode (name)
-SELECT name
-FROM inserted;
-
 PRINT 'Mode provided values are correct! Moving on...';
 
-END TRY BEGIN CATCH PRINT 'Error occurred when trying to insert mode!';
-
-PRINT ERROR_MESSAGE();
-
-END CATCH
 END;
