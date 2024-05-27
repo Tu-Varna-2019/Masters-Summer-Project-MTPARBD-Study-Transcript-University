@@ -10,3 +10,4 @@ DROP TABLE IF EXISTS university.dbo.StudentGroup;
 DROP TABLE IF EXISTS university.dbo.Subject;
 DROP TABLE IF EXISTS university.dbo.Teacher;
 DROP TABLE IF EXISTS university.dbo.SubjectTeacher;
+DROP TABLE IF EXISTS university.dbo.StudentGroupClass;

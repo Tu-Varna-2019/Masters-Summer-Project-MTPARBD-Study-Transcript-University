@@ -3,6 +3,6 @@ IF OBJECT_ID('university.dbo.Student', 'U') IS NULL BEGIN CREATE TABLE universit
     name VARCHAR(50) NOT NULL,
     faculty_number VARCHAR (8) NOT NULL,
     studentgroup_id INT NOT NULL,
-    CONSTRAINT fk_studentgroup FOREIGN KEY (studentgroup_id) REFERENCES StudentGroup(id) ON DELETE CASCADE
+    CONSTRAINT fk_studentgroup FOREIGN KEY (studentgroup_id) REFERENCES StudentGroup(id)
 );
 END

@@ -1,2 +1,19 @@
-ALTER TABLE university.dbo.Class DROP CONSTRAINT uc_lead_teacher;
-ALTER TABLE university.dbo.Class DROP CONSTRAINT UQ__Class__0B6247C57E0B57FC;
+--ALTER TABLE university.dbo.Class DROP CONSTRAINT uc_lead_teacher;
+--ALTER TABLE university.dbo.Class DROP CONSTRAINT UQ__Class__0B6247C57E0B57FC;
+
+BEGIN
+ALTER TABLE Class
+DROP CONSTRAINT fk_horarium;
+
+ALTER TABLE Class
+DROP CONSTRAINT fk_subject_class
+
+ALTER TABLE Class
+DROP CONSTRAINT fk_semester;
+
+ALTER TABLE Class
+DROP CONSTRAINT fk_hall;
+
+ALTER TABLE Class
+DROP CONSTRAINT fk_lead_teacher;
+END
