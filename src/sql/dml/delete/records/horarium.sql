@@ -1,8 +1,3 @@
-EXEC InsertHorarium
-@type = 'laboratory';
+DECLARE @horarium_id INT = 1;
 
-EXEC InsertHorarium
-@type = 'lecture';
-
-EXEC InsertHorarium
-@type = 'coursework';
+EXEC DeleteHorarium @horarium_id;

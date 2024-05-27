@@ -1,2 +1,3 @@
-EXEC InsertMode @name = 'regular';
-EXEC InsertMode @name = 'part';
+DECLARE @mode_id INT = 1;
+
+EXEC DeleteMode @mode_id;
