@@ -1,7 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertHorarium ON Horarium AFTER 
-INSERT,
-    UPDATE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertHorarium ON Horarium AFTER
+INSERT
+     AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @type VARCHAR(50)

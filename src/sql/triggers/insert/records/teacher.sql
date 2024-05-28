@@ -1,17 +1,18 @@
-CREATE OR ALTER TRIGGER Trigger_InsertTeacher ON Teacher
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    SET NOCOUNT ON;
+CREATE
+OR ALTER TRIGGER Trigger_InsertTeacher ON Teacher
+AFTER
+INSERT AS BEGIN
+SET NOCOUNT ON;
 
-    DECLARE @full_name VARCHAR(100);
-    SELECT @full_name = full_name
-    FROM inserted;
+DECLARE @full_name VARCHAR(100);
 
-    IF @full_name = ''
-    BEGIN
-        RAISERROR ('Teacher name must not be empty!', 16, 1);
-    END;
+SELECT @full_name = full_name
+FROM inserted;
 
-    PRINT 'Teacher provided values are correct! Moving on...';
+IF @full_name = '' BEGIN RAISERROR ('Teacher name must not be empty!', 16, 1);
+
+END;
+
+PRINT 'Teacher provided values are correct! Moving on...';
+
 END;

@@ -1,7 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertSubjectTeacher ON SubjectTeacher AFTER 
-INSERT,
-    UPDATE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertSubjectTeacher ON SubjectTeacher AFTER
+INSERT
+    AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @subject_id INT,

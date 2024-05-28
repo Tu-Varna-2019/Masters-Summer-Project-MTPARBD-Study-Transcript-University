@@ -1,31 +1,31 @@
-CREATE OR ALTER TRIGGER Trigger_InsertStudentGroupClass ON StudentGroupClass
-AFTER  INSERT, UPDATE
+CREATE OR ALTER TRIGGER Trigger_UpdateStudentGroupClass ON StudentGroupClass
+AFTER UPDATE
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @studentgroup_id INT,
-            @class_id INT;
-
-    SELECT @studentgroup_id = studentgroup_id,
-           @class_id = class_id
-    FROM inserted;
-
     IF EXISTS (
         SELECT 1
-        FROM StudentGroupClass
-        WHERE studentgroup_id = @studentgroup_id
-          AND class_id = @class_id
+        FROM inserted AS i
+        WHERE EXISTS (
+            SELECT 1
+            FROM StudentGroupClass AS st
+            WHERE st.studentgroup_id = i.studentgroup_id
+              AND st.class_id = i.class_id
+              AND NOT (UPDATE(studentgroup_id) AND UPDATE(class_id))
+        )
     )
     BEGIN
         RAISERROR ('StudentGroupClass already exists!', 16, 1);
+        RETURN; 
     END;
-    ELSE IF (
+
+    IF (
         SELECT SUM(DATEDIFF(MINUTE, '00:00', c.duration))
         FROM StudentGroup AS sg
         INNER JOIN StudentGroupClass AS sgc ON sgc.studentgroup_id = sg.id
         INNER JOIN Class AS c ON sgc.class_id = c.id
-        WHERE sg.id = @studentgroup_id
+        WHERE sg.id = i.studentgroup_id
     ) > (6 * 60)
     BEGIN
         RAISERROR ('Student working time exceeds 6!', 15, 0);

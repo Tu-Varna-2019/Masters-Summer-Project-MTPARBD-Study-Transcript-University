@@ -1,7 +1,6 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertStudentGroup ON StudentGroup AFTER 
-INSERT,
-    UPDATE
+OR ALTER TRIGGER Trigger_InsertStudentGroup ON StudentGroup AFTER
+INSERT
      AS BEGIN
 SET NOCOUNT ON;
 

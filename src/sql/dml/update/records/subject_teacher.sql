@@ -1,7 +1,7 @@
 
-DECLARE @id INT = 1,
-@subject_id INT = 2,
-@teacher_id INT = 3;
+DECLARE @id INT = 24,
+@subject_id INT = 1,
+@teacher_id INT = 4;
 
 EXEC UpdateSubjectTeacher @id,
 @subject_id,

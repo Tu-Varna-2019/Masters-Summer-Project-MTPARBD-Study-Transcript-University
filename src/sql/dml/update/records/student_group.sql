@@ -1,4 +1,4 @@
-DECLARE @id INT = 3,
+DECLARE @id INT = 4,
     @group_number INT = 14,
     @course INT = 2,
     @specialty_id INT = 2,

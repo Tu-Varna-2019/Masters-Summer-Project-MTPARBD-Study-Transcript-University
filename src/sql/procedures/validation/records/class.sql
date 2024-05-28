@@ -7,8 +7,7 @@ OR ALTER PROCEDURE ValidateClass @year INT,
 @subject_id INT,
 @semester_id INT,
 @hall_id INT,
-@lead_teacher_id INT AS BEGIN -- Restrict lead teacher from teaching more than 4 different type of subjects --
-IF (
+@lead_teacher_id INT AS BEGIN IF (
     SELECT COUNT(*)
     from class
     where lead_teacher_id = @lead_teacher_id
@@ -43,8 +42,16 @@ else if (
     from class as c
     where @year = c.year
         and @day_of_week = c.day_of_week
-    AND @time < DATEADD(SECOND, DATEDIFF(SECOND, '00:00:00', c.time), c.duration)
-    AND DATEADD(SECOND, DATEDIFF(SECOND, '00:00:00', @time), @duration) > c.time
+        AND @time < DATEADD(
+            SECOND,
+            DATEDIFF(SECOND, '00:00:00', c.time),
+            c.duration
+        )
+        AND DATEADD(
+            SECOND,
+            DATEDIFF(SECOND, '00:00:00', @time),
+            @duration
+        ) > c.time
 ) > 0 begin raiserror ('time is already occupied!', 16, 0)
 end
 ELSE IF (

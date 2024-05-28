@@ -1,5 +1,5 @@
 CREATE OR ALTER TRIGGER Trigger_InsertStudentGroupClass ON StudentGroupClass
-AFTER  INSERT, UPDATE
+AFTER  INSERT
 AS
 BEGIN
     SET NOCOUNT ON;

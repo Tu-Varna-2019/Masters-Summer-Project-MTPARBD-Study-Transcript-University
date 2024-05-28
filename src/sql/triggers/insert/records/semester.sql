@@ -1,7 +1,7 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertSemester ON Semester AFTER 
-INSERT,
-    UPDATE AS BEGIN
+OR ALTER TRIGGER Trigger_InsertSemester ON Semester AFTER
+INSERT
+    AS BEGIN
 SET NOCOUNT ON;
 
 DECLARE @semester_number VARCHAR(50);

@@ -1,7 +1,6 @@
 CREATE
-OR ALTER TRIGGER Trigger_InsertSpecialty ON Specialty AFTER 
-INSERT,
-    UPDATE
+OR ALTER TRIGGER Trigger_InsertSpecialty ON Specialty AFTER
+INSERT
      AS BEGIN
 SET NOCOUNT ON;
 
