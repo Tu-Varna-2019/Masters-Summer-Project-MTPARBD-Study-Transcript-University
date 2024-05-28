@@ -13,7 +13,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    BEGIN TRY
+    BEGIN
         UPDATE dbo.Class
         SET
             year = @year,
@@ -27,10 +27,5 @@ BEGIN
             lead_teacher_id = @lead_teacher_id
         WHERE id = @class_id;
 
-        PRINT 'Class is successfully updated!';
-    END TRY
-    BEGIN CATCH
-        PRINT 'Error occurred when trying to update Class!';
-        PRINT ERROR_MESSAGE();
-    END CATCH
+END
 END;

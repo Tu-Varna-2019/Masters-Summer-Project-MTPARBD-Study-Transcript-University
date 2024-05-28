@@ -1,13 +1,13 @@
 DECLARE @class_id INT = 60,
-    @year INT = 2024,
+    @year INT = 2025,
     @day_of_week INT = 3,
     @duration TIME = '02:30:00',
-    @time TIME = '18:00:00',
+    @time TIME = '08:00:00',
     @horarium_id INT = 3,
-    @subject_id INT = 1,
+    @subject_id INT = 2,
     @semester_id INT = 1,
     @hall_id INT = 11,
-    @lead_teacher_id INT = 9;
+    @lead_teacher_id INT = 3;
 
 EXEC UpdateClass @class_id,
 @year,

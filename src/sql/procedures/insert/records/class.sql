@@ -32,7 +32,7 @@ VALUES (
         @semester_id,
         @hall_id,
         @lead_teacher_id
-    ) PRINT 'Class is successfully added!';
+    )
 
 END
 END;
