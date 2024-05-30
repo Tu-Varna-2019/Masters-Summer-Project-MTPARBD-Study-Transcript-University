@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 .dbeaver/
 dotnet-interactive/install_and_connect_tools.ipynb
-.vscode
+.vscode/
